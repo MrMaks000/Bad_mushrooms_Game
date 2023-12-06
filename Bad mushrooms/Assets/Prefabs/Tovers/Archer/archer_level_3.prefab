@@ -98,14 +98,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 117b83118cb8f7b4d9b9be990fef8eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeDamag: 0
+  typeDamag: 2
   attackRange: 4
   attackSpeed: 30
   visibleEnemies: []
   projectilePrefab: {fileID: 9026456036192502777, guid: 3c1feac5b53a92740a9ac0e537a122d7, type: 3}
   damage: 10
   ImprovementStage: 2
-  price: 75
+  price: 50
 --- !u!61 &7895398501310475689
 BoxCollider2D:
   m_ObjectHideFlags: 0

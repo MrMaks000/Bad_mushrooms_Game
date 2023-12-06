@@ -1,3 +1,4 @@
+using Assets.Scripts.Tover;
 using System;
 using TMPro;
 using Unity.VisualScripting;
@@ -11,12 +12,15 @@ public class BuildTover : MonoBehaviour
     [SerializeField] private Coins coins;
 
     private RaycastHit2D hit;
+    private float Displacement;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0)) 
         {
             towerPrefab.TryGetComponent<Tovers>(out var tover);
+            if (tover.typeDamag == TypeOfDamag.archer) Displacement = 0.85f;
+            if (tover.typeDamag == TypeOfDamag.magic) Displacement = 0.45f;
 
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             hit = Physics2D.Raycast(ray.origin, ray.direction);
@@ -36,7 +40,7 @@ public class BuildTover : MonoBehaviour
 
     private void BuildTower(Vector3 position)
     {
-        GameObject newTower = Instantiate(towerPrefab, new Vector3(position.x, position.y + 0.85f, 0), Quaternion.identity);
+        GameObject newTower = Instantiate(towerPrefab, new Vector3(position.x, position.y + Displacement, 0), Quaternion.identity);
         GameObject grass = Instantiate(grassPrefab, new Vector3(position.x, position.y, position.z), Quaternion.identity);
     }
 }

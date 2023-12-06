@@ -12,26 +12,32 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected Image healthBarr;
     [SerializeField] protected int coin = 1;
+    [SerializeField] protected int damage = 1;
 
     protected Vector3 maxBarr;
     protected GameObject[] wayPoints;
     protected int currentWayPoint = 0;
     protected Vector2 target;
-    protected int Health;
+    protected int CurrentHealth;
 
 
     private void Start()
     {
 
         maxBarr = healthBarr.rectTransform.localScale; 
-        Health = maxHealth;
+        CurrentHealth = maxHealth;
     }
 
     private void Update()
     {
         Move();
-        if (Health <= 0)
+        if (CurrentHealth <= 0)
         {
+            Coins coinManager = Coins.GetInstance();
+            if (coinManager != null)
+            {
+                coinManager.AddCoins(coin);
+            }
             Die();
         }
             
@@ -39,11 +45,11 @@ public class Enemy : MonoBehaviour
 
     public void GetDamage(int damage)
     {
-        Health -= damage;
+        CurrentHealth -= damage;
 
         Vector3 barr = healthBarr.rectTransform.localScale;
 
-        barr.x = Health * 100 / maxHealth * maxBarr.x / 100;
+        barr.x = CurrentHealth * 100 / maxHealth * maxBarr.x / 100;
 
         healthBarr.rectTransform.localScale = barr;
     }
@@ -57,11 +63,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Die()
     {
-        Coins coinManager = Coins.GetInstance();
-        if (coinManager != null)
-        {
-            coinManager.AddCoins(coin);
-        }
+        
         Destroy(gameObject);        
     }
 
@@ -74,7 +76,12 @@ public class Enemy : MonoBehaviour
         {
             if (currentWayPoint > wayPoints.Length - 1)
             {
-                Die();
+                Health healthManager = Health.GetInstance();
+                if (healthManager != null)
+                {
+                    healthManager.SpendHealth(damage);
+                }
+                Die();           
             }
             else
             {                
