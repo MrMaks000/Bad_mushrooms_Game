@@ -1,10 +1,5 @@
-using Assets.Scripts.Tover;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 
 public class Archer : Tovers
 { 
