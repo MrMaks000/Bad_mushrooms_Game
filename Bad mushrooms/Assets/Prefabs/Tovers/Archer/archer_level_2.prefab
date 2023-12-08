@@ -100,12 +100,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeDamag: 2
   attackRange: 3
-  attackSpeed: 30
+  attackSpeed: 20
   visibleEnemies: []
   projectilePrefab: {fileID: 9026456036192502777, guid: 3c1feac5b53a92740a9ac0e537a122d7, type: 3}
   damage: 4
   ImprovementStage: 1
-  price: 25
+  price: 35
 --- !u!61 &3848242262675346136
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MagicBall : MonoBehaviour
@@ -51,8 +49,6 @@ public class MagicBall : MonoBehaviour
         {
             target.GetDamage(damage);
         }
-
-        // Здесь можно добавить логику повреждения врага и дополнительные действия при попадании
         Destroy(gameObject);
     }
 }

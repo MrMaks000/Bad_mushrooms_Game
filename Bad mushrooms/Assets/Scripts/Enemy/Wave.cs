@@ -37,11 +37,20 @@ public class Wave : MonoBehaviour
         {
             if (numberOfSpawnEnemy >= enemyNumbers[indexOfEnemyNumbers])
             {
-                if (indexOfEnemyNumbers >= enemyNumbers.Length - 1) enabledScript = false;
+                if (indexOfEnemyNumbers >= enemyNumbers.Length)
+                {
+                    enabledScript = false;
+                    return;
+                }
                 indexOfEnemyNumbers++;
                 numberOfSpawnEnemy = 0;
                 indexOfSpawnIntervals++;
                 indexOfindexOfEnemyPrefabs++;
+                if (indexOfindexOfEnemyPrefabs >= indexOfEnemyPrefabs.Length)
+                {
+                    enabledScript = false;
+                    return;
+                }
                 spawnInterval = waveInterval;
             }
 
@@ -55,7 +64,7 @@ public class Wave : MonoBehaviour
                 spawnTimer = 0;
 
                 enemyList.Add(SpawnEnemy.Spawn(enemyPrefabs[indexOfEnemyPrefabs[indexOfindexOfEnemyPrefabs]], way, transform.position));
-                if (indexOfindexOfEnemyPrefabs == indexOfEnemyPrefabs.Length - 1) enabledScript = false;
+                
 
                 numberOfSpawnEnemy++;
                 

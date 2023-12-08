@@ -1,7 +1,4 @@
 using Assets.Scripts.Tover;
-using System;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildTover : MonoBehaviour

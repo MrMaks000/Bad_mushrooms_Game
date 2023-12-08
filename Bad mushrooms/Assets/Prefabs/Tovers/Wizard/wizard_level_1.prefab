@@ -99,11 +99,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeDamag: 3
-  attackRange: 3
+  attackRange: 2
   attackSpeed: 10
   visibleEnemies: []
   projectilePrefab: {fileID: 8237155229906385972, guid: 996da5cd00fd39d4d9589e497a8c4276, type: 3}
-  damage: 6
+  damage: 5
   ImprovementStage: 0
   price: 15
 --- !u!61 &8253378522444024799

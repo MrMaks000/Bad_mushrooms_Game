@@ -99,10 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c863260d9fce049959610b6ceb7f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 25
   moveSpeed: 3
   healthBarr: {fileID: 5372484186812490452}
   coin: 5
+  damage: 1
 --- !u!61 &-169798994750658936
 BoxCollider2D:
   m_ObjectHideFlags: 0

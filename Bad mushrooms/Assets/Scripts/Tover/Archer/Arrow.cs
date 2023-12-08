@@ -10,7 +10,7 @@ public class Arrow : MonoBehaviour
     {
         target = newTarget;
         damage = _damage;
-        RotateArrow(); // Вызываем функцию поворота стрелы при установке новой цели
+        RotateArrow(); 
     }
 
     private void Update()
@@ -33,7 +33,7 @@ public class Arrow : MonoBehaviour
         Vector3 newPosition = Vector3.Lerp(transform.position, target.transform.position, distanceThisFrame / direction.magnitude);
         transform.position = newPosition;
 
-        RotateArrow(); // Вызываем функцию поворота стрелы каждый кадр для коррекции направления
+        RotateArrow();
     }
 
     private void RotateArrow()
@@ -49,8 +49,6 @@ public class Arrow : MonoBehaviour
         {
             target.GetDamage(damage);
         }
-
-        // Здесь можно добавить логику повреждения врага и дополнительные действия при попадании
         Destroy(gameObject);
     }
 }
