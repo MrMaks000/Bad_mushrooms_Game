@@ -15,15 +15,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected int damage = 1;
 
     protected Vector3 maxBarr;
-    protected GameObject[] wayPoints;
+    protected List<GameObject> wayPoints;
     protected int currentWayPoint = 0;
-    protected Vector2 target;
+    protected Vector3 target;
     protected int CurrentHealth;
 
 
     private void Start()
     {
-
         maxBarr = healthBarr.rectTransform.localScale; 
         CurrentHealth = maxHealth;
     }
@@ -33,6 +32,9 @@ public class Enemy : MonoBehaviour
         Move();
         if (CurrentHealth <= 0)
         {
+            currentWayPoint = 0;
+            CurrentHealth = maxHealth;
+            healthBarr.rectTransform.localScale = maxBarr;
             Coins coinManager = Coins.GetInstance();
             if (coinManager != null)
             {
@@ -54,7 +56,8 @@ public class Enemy : MonoBehaviour
         healthBarr.rectTransform.localScale = barr;
     }
 
-    public void GetWayPoints(GameObject[] points)
+
+    public void GetWayPoints(List<GameObject> points)
     {
         wayPoints = points;
         target = wayPoints[currentWayPoint].transform.position;
@@ -63,31 +66,30 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Die()
     {
-        
-        Destroy(gameObject);        
+        gameObject.SetActive(false);       
     }
 
     protected virtual void Move()
     {
         if (wayPoints == null) return;
 
-        transform.position = Vector2.MoveTowards(transform.position, target, moveSpeed / 4 * Time.deltaTime);
-        if (transform.position == new Vector3(target.x, target.y, 0))
+        transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed / 4 * Time.deltaTime);
+        if (transform.position == new Vector3(target.x, target.y, target.z))
         {
-            if (currentWayPoint > wayPoints.Length - 1)
+            if (currentWayPoint > wayPoints.Count - 1)
             {
                 Health healthManager = Health.GetInstance();
                 if (healthManager != null)
                 {
                     healthManager.SpendHealth(damage);
                 }
-                Die();           
+                Die();
             }
             else
-            {                
+            {
                 target = wayPoints[currentWayPoint].transform.position;
                 currentWayPoint++;
             }
-        }      
+        }
     }
 }

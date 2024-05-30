@@ -8,7 +8,8 @@ public class LevelMenu : MonoBehaviour
 {
     [SerializeField] private List<Sprite> spritesOfMap;
     [SerializeField] private Image image;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI textElement;
+    [SerializeField] private string text = "";
 
     private int indexOfSprite = 0;
 
@@ -23,7 +24,7 @@ public class LevelMenu : MonoBehaviour
         if (indexOfSprite >= spritesOfMap.Count) indexOfSprite = 0;
         if (indexOfSprite < 0) indexOfSprite = spritesOfMap.Count - 1;
         image.sprite = spritesOfMap[indexOfSprite];
-        text.text = "Level " + (indexOfSprite + 1);
+        textElement.text = text + " " + (indexOfSprite + 1);
     }
 
     public void ChangeLevelLeft()
@@ -40,7 +41,7 @@ public class LevelMenu : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene("Level_" + (indexOfSprite + 1));
+        SceneManager.LoadScene(text + "_" + (indexOfSprite + 1));
     }
 
 

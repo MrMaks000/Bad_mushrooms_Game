@@ -178,6 +178,7 @@ MonoBehaviour:
   moveSpeed: 3
   healthBarr: {fileID: 1703038920644309097}
   coin: 2
+  damage: 1
 --- !u!61 &1781334585571419960
 BoxCollider2D:
   m_ObjectHideFlags: 0

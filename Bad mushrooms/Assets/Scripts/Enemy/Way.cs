@@ -3,26 +3,38 @@ using UnityEngine;
 
 public class Way : MonoBehaviour
 {
-    [SerializeField] protected List<GameObject[]> ways;
+    [SerializeField] private List<GameObject> way;
 
-    [SerializeField] private GameObject[] way;
+    private List<List<GameObject>> ways;
 
-    public GameObject[] GetWayPoints()
+    public List<GameObject> GetWayPoints()
     {
-        FindingTheWay();
+        if (ways != null) return ways[UnityEngine.Random.Range(0, ways.Count)];
         if (way != null) return way;
         else return null;
     }
 
-    private void FindingTheWay()
+    private void Bias(float x, float y)
     {
-        if (ways == null) { return; }
-
-        for (int i = 0; i < ways.Count; i++)
+        foreach (var element in way)
         {
-            way[i] = ways[UnityEngine.Random.Range(0, ways.Count)][i];
+            element.transform.position = element.transform.position + new Vector3(x, y, 0);
         }
     }
 
-    
+    public void SetWeyPoints(List<GameObject> way)
+    {
+        this.way = way;
+    }
+
+    public void SetWeyPoints(List<GameObject> way, float biasX, float biasY)
+    {
+        this.way = way;
+        Bias(biasX, biasY);
+    }
+
+    public void SetWeyPoints(List<List<GameObject>> ways)
+    {
+        this.ways = ways;
+    }
 }

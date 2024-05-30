@@ -13,7 +13,8 @@ public class Wave : MonoBehaviour
     [SerializeField] private GameObject buildMenu;
 
     private List<GameObject> enemyList = new List<GameObject>();
-    private bool enabledScript = true;
+    private bool enabledEnemy = false;
+    private bool waveIsOver = false;
 
     private float defoultSpawnInterval = 1;
     private float spawnTimer = 0;
@@ -30,16 +31,13 @@ public class Wave : MonoBehaviour
 
     private void Update()
     {
-        if (enemyList.Count > 0 && enemyList[0] == null) enemyList.Remove(enemyList[0]);
-
-
-        if (enabledScript == true)
+        if (waveIsOver == false)
         {
             if (numberOfSpawnEnemy >= enemyNumbers[indexOfEnemyNumbers])
             {
                 if (indexOfEnemyNumbers >= enemyNumbers.Length)
                 {
-                    enabledScript = false;
+                    waveIsOver = true;
                     return;
                 }
                 indexOfEnemyNumbers++;
@@ -48,7 +46,7 @@ public class Wave : MonoBehaviour
                 indexOfindexOfEnemyPrefabs++;
                 if (indexOfindexOfEnemyPrefabs >= indexOfEnemyPrefabs.Length)
                 {
-                    enabledScript = false;
+                    waveIsOver = true;
                     return;
                 }
                 spawnInterval = waveInterval;
@@ -63,15 +61,40 @@ public class Wave : MonoBehaviour
 
                 spawnTimer = 0;
 
-                enemyList.Add(SpawnEnemy.Spawn(enemyPrefabs[indexOfEnemyPrefabs[indexOfindexOfEnemyPrefabs]], way, transform.position));
-                
-
-                numberOfSpawnEnemy++;
-                
-            }
+                enemyPrefabs[indexOfEnemyPrefabs[indexOfindexOfEnemyPrefabs]].TryGetComponent<SpriteRenderer>(out var prefabSpriteRenderer);
+                foreach (GameObject enemy in enemyList)
+                {
+                    enemy.TryGetComponent<SpriteRenderer>(out var spriteRenderer);
+                    
+                    if (enemy.activeSelf == false && spriteRenderer.sprite == prefabSpriteRenderer.sprite)
+                    {
+                        enemy.transform.position = transform.position;
+                        enemy.SetActive(true);
+                        enemy.TryGetComponent<Enemy>(out var enemyObject);
+                        enemyObject.GetWayPoints(way.GetWayPoints());
+                        
+                        enabledEnemy = true;
+                        numberOfSpawnEnemy++;
+                        break;
+                    }
+                }
+                if (enabledEnemy == false)
+                {
+                    enemyList.Add(SpawnEnemy.Spawn(enemyPrefabs[indexOfEnemyPrefabs[indexOfindexOfEnemyPrefabs]], way, transform.position));
+                    numberOfSpawnEnemy++;
+                }
+                enabledEnemy = false;               
+            }           
         }
-        else if (enemyList.Count == 0)
+        else if (enemyList.Count >0 && waveIsOver == true)
         {
+            foreach (GameObject enemy in enemyList)
+            {
+                if (enemy.activeSelf == true)
+                {
+                    return;
+                }
+            }
             winMenu.SetActive(true);
             buildMenu.SetActive(false);
             enabled = false;
